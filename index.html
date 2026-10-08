@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="hr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>telnes · Minecraft server</title>
-<meta name="description" content="The telnes Minecraft server: address, status and how to join.">
+<meta name="description" content="Minecraft server telnes: adresa, status i kako se spojiti.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffd23f" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
@@ -78,20 +78,20 @@ footer a{color:var(--ink);text-underline-offset:3px}
     <p class="kicker">Minecraft server</p>
 
     <section class="card" aria-labelledby="addr-label">
-      <p class="label" id="addr-label">Server address</p>
+      <p class="label" id="addr-label">Adresa servera</p>
       <div class="addr-row">
         <p class="addr" id="addr">mc.telnes.de</p>
-        <button type="button" id="copy">Copy</button>
+        <button type="button" id="copy">Kopiraj</button>
       </div>
-      <p class="status" id="status" aria-live="polite"><span class="dot"></span><span id="status-text">Checking the server…</span></p>
+      <p class="status" id="status" aria-live="polite"><span class="dot"></span><span id="status-text">Provjeravam server…</span></p>
     </section>
 
     <section class="join" aria-labelledby="join-h">
-      <h2 id="join-h">How to join</h2>
+      <h2 id="join-h">Kako se spojiti</h2>
       <ol>
-        <li><span>Open Minecraft and go to <b>Multiplayer</b>.</span></li>
-        <li><span>Click <b>Add Server</b> and paste <b>mc.telnes.de</b> as the server address.</span></li>
-        <li><span>Click <b>Done</b>, then double-click the server to join.</span></li>
+        <li><span>Otvori Minecraft i idi na <b>Multiplayer</b>.</span></li>
+        <li><span>Klikni <b>Add Server</b> i zalijepi <b>mc.telnes.de</b> kao adresu servera.</span></li>
+        <li><span>Klikni <b>Done</b>, zatim dvaput klikni na server da se spojiš.</span></li>
       </ol>
     </section>
   </div>
@@ -102,14 +102,14 @@ footer a{color:var(--ink);text-underline-offset:3px}
   var ADDRESS = "mc.telnes.de";
   var btn = document.getElementById("copy");
   btn.addEventListener("click", function () {
-    function done() { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1800); }
+    function done() { btn.textContent = "Kopirano"; setTimeout(function () { btn.textContent = "Kopiraj"; }, 1800); }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(ADDRESS).then(done, fallback);
     } else { fallback(); }
     function fallback() {
       var r = document.createRange(); r.selectNodeContents(document.getElementById("addr"));
       var s = getSelection(); s.removeAllRanges(); s.addRange(r);
-      try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Press Ctrl+C"; }
+      try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Pritisni Ctrl+C"; }
     }
   });
 
@@ -120,15 +120,15 @@ footer a{color:var(--ink);text-underline-offset:3px}
     .then(function (r) { return r.json(); })
     .then(function (d) {
       if (d && d.online) {
-        var p = d.players || {}, bits = ["<b>Online</b>"];
-        if (typeof p.online === "number") bits.push(p.online + (p.max ? " / " + p.max : "") + " players");
+        var p = d.players || {}, bits = ["<b>Uključen</b>"];
+        if (typeof p.online === "number") bits.push("igrači: " + p.online + (p.max ? " / " + p.max : ""));
         if (d.version) bits.push(String(d.version).replace(/[<>&]/g, ""));
         show("on", bits.join(" · "));
       } else {
-        show("off", "<b>Offline</b> right now");
+        show("off", "Server je trenutno <b>isključen</b>");
       }
     })
-    .catch(function () { show("", "Couldn't check the status right now"); });
+    .catch(function () { show("", "Status trenutno nije dostupan"); });
 })();
 </script>
 </body>
